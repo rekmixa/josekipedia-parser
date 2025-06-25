@@ -11,5 +11,5 @@ services:
         max-file: '3'
     volumes:
       - ./:/home/node/app
-    command: sh -c 'yarn'
+    command: sh -c 'yarn && yarn go'
     restart: "no"

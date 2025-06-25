@@ -1,3 +1,5 @@
+all: up logs
+
 rm-git:
 	@rm -rf .git
 
@@ -6,6 +8,12 @@ clean-data:
 
 up:
 	@docker-compose up -d
+
+stop:
+	@docker-compose stop
+
+down:
+	@docker-compose down
 
 env:
 	@docker-compose run --rm node bash
