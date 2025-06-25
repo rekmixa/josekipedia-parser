@@ -4,6 +4,9 @@ rm-git:
 clean-data:
 	@rm -rf data/moves/*
 
+up:
+	@docker-compose up -d
+
 env:
 	@docker-compose run --rm node bash
 
