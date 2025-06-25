@@ -14,3 +14,13 @@ Run script:
 ```bash
 yarn go
 ```
+
+With Docker:
+
+```bash
+make up logs
+make stop
+make down
+make restart
+make env
+```
