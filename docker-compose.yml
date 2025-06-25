@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  node:
+    build:
+      context: docker/node
+    working_dir: /home/node/app
+    logging:
+      options:
+        max-size: '10m'
+        max-file: '3'
+    volumes:
+      - ./:/home/node/app
+    command: sh -c 'yarn'
+    restart: no
