@@ -57,5 +57,6 @@ while (idsStack.length > 0) {
 
   process.stdout.write(`| Progress: ${String(i).padEnd(9, ' ')} `)
   process.stdout.write(`| Time: ${(new Date().getTime() - time) / 1000}s.`)
-  process.stdout.write(`\r`)
+  process.stdout.write(`\n`)
+  // process.stdout.write(`\r`)
 }
