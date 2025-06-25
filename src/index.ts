@@ -36,6 +36,8 @@ const downloadId = async (id?: number): Promise<number[]> => {
     filePutContents(fileName, jsonEncode(response.data))
   }
 
+  process.stdout.write(` | _mtype: ${data._mtype}`)
+
   const childrenIds: number[] =
     data._children
       ?.filter((child: any) => [0, 1].includes(child._mtype))
