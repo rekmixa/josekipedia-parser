@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 
 export function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
@@ -41,6 +42,8 @@ export function fileGetContents(filename: string): string {
 }
 
 export function filePutContents(filename: string, content: string): void {
+  const directory = path.dirname(filename)
+  fs.mkdirSync(directory, { recursive: true })
   fs.writeFileSync(filename, content)
 }
 

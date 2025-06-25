@@ -6,18 +6,22 @@ import {
   jsonEncode,
 } from './helpers'
 import axios from 'axios'
+import md5 from 'md5'
 
 await delay(1000)
 
-const url = (id: number) =>
+const idUrl = (id: number): string =>
   `https://www.josekipedia.com/db/node.php?id=${id}&pid=0`
+
+const idFileName = (id: number): string =>
+  `./data/moves/${md5(String(id)).substr(0, 2)}/${md5(String(id)).substr(2, 2)}/${id}.json`
 
 const downloadId = async (id?: number): Promise<number[]> => {
   if (id === undefined) {
     throw new Error('id is undefined')
   }
 
-  const fileName: string = `./data/moves/${id}.json`
+  const fileName: string = idFileName(id)
   process.stdout.write(`ID ${String(id).padEnd(9, ' ')} | `)
 
   let data: any
@@ -26,7 +30,7 @@ const downloadId = async (id?: number): Promise<number[]> => {
     data = JSON.parse(fileGetContents(fileName))
   } else {
     process.stdout.write('downloading'.padEnd(20, ' '))
-    const response = await axios.get(url(id))
+    const response = await axios.get(idUrl(id))
     data = response.data
     filePutContents(fileName, jsonEncode(response.data))
   }
@@ -34,7 +38,9 @@ const downloadId = async (id?: number): Promise<number[]> => {
   const childrenIds: number[] =
     data._children?.map((child: any) => child._id) ?? []
 
-  process.stdout.write(` | children count - ${String(childrenIds.length).padEnd(3, ' ')} `)
+  process.stdout.write(
+    ` | children count - ${String(childrenIds.length).padEnd(3, ' ')} `,
+  )
 
   return childrenIds
 }
