@@ -4,6 +4,7 @@ import {
   fileGetContents,
   filePutContents,
   jsonEncode,
+  showUptime,
 } from './helpers'
 import axios from 'axios'
 import md5 from 'md5'
@@ -26,10 +27,10 @@ const downloadId = async (id?: number): Promise<number[]> => {
 
   let data: any
   if (fileExists(fileName)) {
-    process.stdout.write('already downloaded'.padEnd(20, ' '))
+    process.stdout.write('Already downloaded'.padEnd(20, ' '))
     data = JSON.parse(fileGetContents(fileName))
   } else {
-    process.stdout.write('downloading'.padEnd(20, ' '))
+    process.stdout.write('Downloading...'.padEnd(20, ' '))
     const response = await axios.get(idUrl(id))
     data = response.data
     filePutContents(fileName, jsonEncode(response.data))
@@ -39,7 +40,7 @@ const downloadId = async (id?: number): Promise<number[]> => {
     data._children?.map((child: any) => child._id) ?? []
 
   process.stdout.write(
-    ` | children count - ${String(childrenIds.length).padEnd(3, ' ')} `,
+    ` | Children count: ${String(childrenIds.length).padEnd(3, ' ')} `,
   )
 
   return childrenIds
@@ -47,7 +48,6 @@ const downloadId = async (id?: number): Promise<number[]> => {
 
 const idsStack: number[] = [1]
 let i = 0
-let time = new Date().getTime()
 
 while (idsStack.length > 0) {
   i++
@@ -56,7 +56,7 @@ while (idsStack.length > 0) {
   await delay(10)
 
   process.stdout.write(`| Progress: ${String(i).padEnd(9, ' ')} `)
-  process.stdout.write(`| Time: ${(new Date().getTime() - time) / 1000}s.`)
+  process.stdout.write(`| Uptime: ${showUptime()}`)
   process.stdout.write(`\n`)
   // process.stdout.write(`\r`)
 }
