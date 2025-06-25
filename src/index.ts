@@ -57,6 +57,7 @@ while (idsStack.length > 0) {
 
   process.stdout.write(`| Progress: ${String(i).padEnd(9, ' ')} `)
   process.stdout.write(`| Uptime: ${showUptime()}`)
+  process.stdout.write(` | In queue: ${idsStack.length}`)
   process.stdout.write(`\n`)
   // process.stdout.write(`\r`)
 }
