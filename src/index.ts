@@ -37,7 +37,9 @@ const downloadId = async (id?: number): Promise<number[]> => {
   }
 
   const childrenIds: number[] =
-    data._children?.map((child: any) => child._id) ?? []
+    data._children
+      ?.filter((child: any) => [0, 1].includes(child._mtype))
+      ?.map((child: any) => child._id) ?? []
 
   process.stdout.write(
     ` | Children count: ${String(childrenIds.length).padEnd(3, ' ')} `,
