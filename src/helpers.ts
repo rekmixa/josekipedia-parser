@@ -32,6 +32,14 @@ export function showUptime(): string {
   return format(process.uptime())
 }
 
+export function fileExists(filename: string): boolean {
+  return fs.existsSync(filename)
+}
+
+export function fileGetContents(filename: string): string {
+  return fs.readFileSync(filename).toString()
+}
+
 export function filePutContents(filename: string, content: string): void {
   fs.writeFileSync(filename, content)
 }
@@ -48,4 +56,12 @@ export function arrayUnique<T>(array: T[]): T[] {
 
 export function jsonEncode(data: any): string {
   return JSON.stringify(data, null, 2)
+}
+
+export function fixEncoding(str: string): string {
+  // Создаем массив байтов, интерпретируя каждый символ как Latin1-байт (0–255)
+  const byteArray = Uint8Array.from([...str].map(ch => ch.charCodeAt(0)));
+
+  // Декодируем эти байты как UTF-8
+  return new TextDecoder('utf-8').decode(byteArray);
 }

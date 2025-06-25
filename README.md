@@ -1,4 +1,4 @@
-# simple-typescript-app-skeleton
+# josekipedia-parser
 
 > Node v20.11.0  
 > Typescript v5.6.2
