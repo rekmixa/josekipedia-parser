@@ -1,6 +1,3 @@
 node_modules
 .vscode
 TODO.md
-data/*
-!data/moves
-data/moves/*
