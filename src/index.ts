@@ -15,7 +15,10 @@ const idUrl = (id: number): string =>
   `https://www.josekipedia.com/db/node.php?id=${id}&pid=0`
 
 const idFileName = (id: number): string =>
-  `./data/moves/${md5(String(id)).substr(0, 2)}/${md5(String(id)).substr(2, 2)}/${id}.json`
+  `./data/moves/${md5(String(id)).substr(0, 2)}/${md5(String(id)).substr(
+    2,
+    2,
+  )}/${id}.json`
 
 const downloadId = async (id?: number): Promise<number[]> => {
   if (id === undefined) {
@@ -31,9 +34,23 @@ const downloadId = async (id?: number): Promise<number[]> => {
     data = JSON.parse(fileGetContents(fileName))
   } else {
     process.stdout.write('Downloading...'.padEnd(20, ' '))
-    const response = await axios.get(idUrl(id))
-    data = response.data
-    filePutContents(fileName, jsonEncode(response.data))
+
+    for (let i = 0; i < 10; i++) {
+      try {
+        const response = await axios.get(idUrl(id))
+        data = response.data
+        break
+      } catch (error) {
+        process.stdout.write('!')
+        await delay(10_000)
+      }
+    }
+
+    if (!data) {
+      throw new Error('cannot download move!')
+    }
+
+    filePutContents(fileName, jsonEncode(data))
   }
 
   process.stdout.write(` | _mtype: ${data._mtype}`)
