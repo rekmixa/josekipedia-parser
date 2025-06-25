@@ -6,6 +6,9 @@ rm-git:
 clean-data:
 	@rm -rf data/moves/*
 
+size:
+	@du -sh data
+
 up:
 	@docker-compose up -d
 
