@@ -9,6 +9,8 @@ import { fileExists, fileGetContents, filePutContents } from './helpers'
 
 const withComments = process.argv.some((arg) => arg.startsWith('--with-comments'))
 
+let progress = 0
+
 const getSgf = (moveId: number): string => {
   const fileName = idFileName(moveId)
   if (!fileExists(fileName)) {
@@ -20,6 +22,7 @@ const getSgf = (moveId: number): string => {
     return ''
   }
 
+  progress++
   process.stdout.write(`ID ${String(move._id).padEnd(7, ' ')}`)
 
   let sgf = '('
@@ -38,7 +41,8 @@ const getSgf = (moveId: number): string => {
 
   const moveSgf = `;${player}[${moveCoords}]`
   sgf += moveSgf
-  process.stdout.write(`| ${moveCoords}`)
+  process.stdout.write(`| ${moveSgf.padEnd(6, ' ')}`)
+  process.stdout.write(` | Progress: ${progress}`)
   process.stdout.write('\n')
 
   if (withComments) {
