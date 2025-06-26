@@ -37,7 +37,11 @@ export async function downloadId(id?: number): Promise<number[]> {
 
     for (let i = 0; i < 10; i++) {
       try {
-        const response = await axios.get(idUrl(id))
+        const response = await axios.get(idUrl(id), {
+          headers: {
+            'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+          },
+        })
         data = response.data
         break
       } catch (error) {
