@@ -20,6 +20,21 @@ export function idFileName(id: number): string {
   )}/${id}.json`
 }
 
+let allowedMoveTypes: MoveType[]
+export function getAllowedMoveTypes(): MoveType[] {
+  if (allowedMoveTypes === undefined) {
+    const fromArg = process.argv
+      .find((arg) => arg.startsWith('--mtypes'))
+      ?.replace('--mtypes=', '')
+      .split(',')
+      .map(Number)
+
+    allowedMoveTypes = fromArg ?? [MoveType.Green, MoveType.Yellow, MoveType.Fancy]
+  }
+
+  return allowedMoveTypes
+}
+
 export async function downloadId(id?: number): Promise<number[]> {
   if (id === undefined) {
     throw new Error('id is undefined')
@@ -63,11 +78,7 @@ export async function downloadId(id?: number): Promise<number[]> {
 
   const childrenIds: number[] =
     data._children
-      ?.filter((child: any) =>
-        // [MoveType.Green, MoveType.Yellow].includes(child._mtype),
-        [MoveType.Green, MoveType.Yellow, MoveType.Fancy].includes(child._mtype),
-      )
-      // ?.filter((child: any) => [MoveType.Green].includes(child._mtype))
+      ?.filter((child: any) => getAllowedMoveTypes().includes(child._mtype))
       ?.map((child: any) => child._id) ?? []
 
   process.stdout.write(
