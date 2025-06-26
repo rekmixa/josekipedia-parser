@@ -12,7 +12,7 @@ yarn
 Run script:
 
 ```bash
-yarn go
+yarn download
 ```
 
 With Docker:

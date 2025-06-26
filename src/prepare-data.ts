@@ -4,4 +4,5 @@ import { fileGetContents, smartFixString } from './helpers'
 const raw = fileGetContents('data/test.json')
 const parsed = JSON.parse(raw)
 
+console.log(smartFixString('test123'))
 console.log(smartFixString(parsed.broken))

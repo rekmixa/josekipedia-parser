@@ -4,7 +4,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "go": "npx tsx src/index.ts",
+    "download": "npx tsx src/download.ts",
     "prepare-data": "npx tsx src/prepare-data.ts"
   },
   "dependencies": {

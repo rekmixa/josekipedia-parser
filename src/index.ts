@@ -1,26 +1,23 @@
+import axios from 'axios'
+import md5 from 'md5'
 import {
   delay,
   fileExists,
   fileGetContents,
   filePutContents,
-  jsonEncode,
-  showUptime,
+  jsonEncode
 } from './helpers'
-import axios from 'axios'
-import md5 from 'md5'
 
-await delay(1000)
-
-const idUrl = (id: number): string =>
+export const idUrl = (id: number): string =>
   `https://www.josekipedia.com/db/node.php?id=${id}&pid=0`
 
-const idFileName = (id: number): string =>
+export const idFileName = (id: number): string =>
   `./data/moves/${md5(String(id)).substr(0, 2)}/${md5(String(id)).substr(
     2,
     2,
   )}/${id}.json`
 
-const downloadId = async (id?: number): Promise<number[]> => {
+export const downloadId = async (id?: number): Promise<number[]> => {
   if (id === undefined) {
     throw new Error('id is undefined')
   }
@@ -68,18 +65,3 @@ const downloadId = async (id?: number): Promise<number[]> => {
   return childrenIds
 }
 
-const idsStack: number[] = [1]
-let i = 0
-
-while (idsStack.length > 0) {
-  i++
-  const childrenIds = await downloadId(idsStack.shift())
-  idsStack.push(...childrenIds)
-  await delay(10)
-
-  process.stdout.write(`| Progress: ${String(i).padEnd(9, ' ')} `)
-  process.stdout.write(`| Uptime: ${showUptime()}`)
-  process.stdout.write(` | In queue: ${idsStack.length}`)
-  process.stdout.write(`\n`)
-  // process.stdout.write(`\r`)
-}
