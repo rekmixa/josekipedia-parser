@@ -7,7 +7,7 @@ import {
 } from 'src'
 import { fileExists, fileGetContents, filePutContents } from './helpers'
 
-let withComments = true
+const withComments = process.argv.some((arg) => arg.startsWith('--with-comments'))
 
 const getSgf = (moveId: number): string => {
   const fileName = idFileName(moveId)
@@ -75,5 +75,6 @@ for (const move of moves) {
 
 sgf += ')'
 
-filePutContents('data/all-josekis.sgf', sgf)
-console.log('SGF file saved!')
+const outputFileName = 'data/all-josekis.sgf'
+filePutContents(outputFileName, sgf)
+console.log(`SGF file saved in ${outputFileName}!`)
