@@ -24,3 +24,11 @@ make down
 make restart
 make env
 ```
+
+Create sgf:
+
+```bash
+yarn create-sgf
+```
+
+sgf will be stored in data/all-josekis.sgf
