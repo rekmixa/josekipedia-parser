@@ -13,6 +13,7 @@ Run script:
 
 ```bash
 yarn download
+yarn download --mtypes=0,1,3
 ```
 
 With Docker:
@@ -29,6 +30,8 @@ Create sgf:
 
 ```bash
 yarn create-sgf
+yarn create-sgf --with-comments
+yarn create-sgf --with-comments --mtypes=0,1,3
 ```
 
-sgf will be stored in data/all-josekis.sgf
+sgf will be stored in data/all-josekis.sgf or data/all-josekis-with-comments.sgf
