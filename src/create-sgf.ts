@@ -62,7 +62,7 @@ const getSgf = (moveId: number): string => {
     sgf += move._children.map((child: any) => getSgf(child._id)).join('')
   }
 
-  sgf += ')'
+  sgf += ')\n'
 
   return sgf
 }
