@@ -18,7 +18,8 @@ const getSgf = (moveId: number): string => {
   }
 
   const move: any = JSON.parse(fileGetContents(fileName))
-  if (![MoveType.Green, MoveType.Yellow].includes(move._mtype)) {
+  // if (![MoveType.Green, MoveType.Yellow].includes(move._mtype)) {
+  if (![MoveType.Green, MoveType.Yellow, MoveType.Fancy].includes(move._mtype)) {
   // if (![MoveType.Green].includes(move._mtype)) {
     return ''
   }

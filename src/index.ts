@@ -58,7 +58,8 @@ export async function downloadId(id?: number): Promise<number[]> {
   const childrenIds: number[] =
     data._children
       ?.filter((child: any) =>
-        [MoveType.Green, MoveType.Yellow].includes(child._mtype),
+        // [MoveType.Green, MoveType.Yellow].includes(child._mtype),
+        [MoveType.Green, MoveType.Yellow, MoveType.Fancy].includes(child._mtype),
       )
       // ?.filter((child: any) => [MoveType.Green].includes(child._mtype))
       ?.map((child: any) => child._id) ?? []
