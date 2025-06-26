@@ -79,7 +79,11 @@ for (const move of moves) {
 
 sgf += ')'
 
-const outputFileName = 'data/all-josekis.sgf'
+let outputFileName = 'data/all-josekis.sgf'
+if (withComments) {
+  outputFileName = 'data/all-josekis-with-comments.sgf'
+}
+
 filePutContents(outputFileName, sgf)
 process.stdout.write('\n')
 console.log(`SGF file saved in ${outputFileName}!`)
