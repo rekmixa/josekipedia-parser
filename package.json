@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "download": "npx tsx src/download.ts",
-    "prepare-data": "npx tsx src/prepare-data.ts"
+    "create-sgf": "npx tsx src/create-sgf.ts"
   },
   "dependencies": {
     "@types/md5": "^2.3.5",
