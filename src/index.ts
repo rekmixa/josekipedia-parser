@@ -50,6 +50,8 @@ export async function downloadId(id?: number): Promise<number[]> {
       }
     }
 
+    await delay(10)
+
     if (!data) {
       throw new Error('cannot download move!')
     }
