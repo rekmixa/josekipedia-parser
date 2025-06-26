@@ -43,7 +43,7 @@ const getSgf = (moveId: number): string => {
   sgf += moveSgf
   process.stdout.write(`| ${moveSgf.padEnd(6, ' ')}`)
   process.stdout.write(` | Progress: ${progress}`)
-  process.stdout.write('\n')
+  process.stdout.write('\r')
 
   if (withComments) {
     sgf += 'C['
@@ -81,4 +81,5 @@ sgf += ')'
 
 const outputFileName = 'data/all-josekis.sgf'
 filePutContents(outputFileName, sgf)
+process.stdout.write('\n')
 console.log(`SGF file saved in ${outputFileName}!`)
